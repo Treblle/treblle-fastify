@@ -1,5 +1,13 @@
 {
+  "type": "commonjs",
+  "scripts": {
+    "example": "node examples/example.js"
+  },
   "dependencies": {
     "@treblle/utils": "^0.0.3"
+  },
+  "devDependencies": {
+    "@fastify/env": "^4.1.0",
+    "fastify": "^4.10.2"
   }
 }
