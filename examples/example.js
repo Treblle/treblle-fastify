@@ -1,35 +1,26 @@
 const fastify =  require('fastify')({ logger: {
   level: 'error'
 }})
-const fastifyEnv = require('@fastify/env')
-const TreblleMiddleware = require('../index')
+require('dotenv').config()
 
-fastify.register(TreblleMiddleware)
+const treblleFastify = require('../index')
 
-const schema = {
-  type: 'object',
-  required: [ 'TREBLLE_API_KEY', 'TREBLLE_PROJECT_ID' ],
-  properties: {
-    TREBLLE_API_KEY: {
-      type: 'string'
-    },
-    TREBLLE_PROJECT_ID: {
-      type: 'string'
-    }
-  }
-}
-
-fastify.register(fastifyEnv, {
-  schema,
-  dotenv: true
-})
+fastify.register(treblleFastify)
 
 fastify.get('/', function (request, reply) {
   reply.send({ hello: 'world' })
 })
 
+fastify.post('/', function (request, reply) {
+  reply.send({ data: request.body })
+})
 
-fastify.listen({ port: 3000 }, function (err, address) {
+fastify.get('/users/:id', function (request, reply) {
+  reply.send({ message: `Retrieved user with ${request.params.id} successfully` })
+})
+
+
+fastify.listen({ port: 3000 }, function (err) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)

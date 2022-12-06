@@ -4,10 +4,11 @@
     "example": "node examples/example.js"
   },
   "dependencies": {
-    "@treblle/utils": "^0.0.3"
+    "@treblle/utils": "^0.0.3",
+    "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
-    "@fastify/env": "^4.1.0",
+    "dotenv": "^16.0.3",
     "fastify": "^4.10.2"
   }
 }
