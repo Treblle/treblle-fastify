@@ -1,6 +1,8 @@
-const fastify =  require('fastify')({ logger: {
-  level: 'error'
-}})
+const fastify = require('fastify')({
+  logger: {
+    level: 'error',
+  },
+})
 require('dotenv').config()
 
 const treblleFastify = require('../index')
@@ -18,7 +20,6 @@ fastify.post('/', function (request, reply) {
 fastify.get('/users/:id', function (request, reply) {
   reply.send({ message: `Retrieved user with ${request.params.id} successfully` })
 })
-
 
 fastify.listen({ port: 3000 }, function (err) {
   if (err) {
