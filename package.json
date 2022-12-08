@@ -1,11 +1,12 @@
 {
+  "name": "treblle-fastify",
   "version": "0.0.1",
   "type": "commonjs",
   "scripts": {
     "example": "node examples/example.js"
   },
   "dependencies": {
-    "@treblle/utils": "^0.0.3",
+    "@treblle/utils": "^0.1.2",
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
