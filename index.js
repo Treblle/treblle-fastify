@@ -15,7 +15,12 @@ async function treblleFastify(
     additionalFieldsToMask = [],
   }
 ) {
+  fastify.decorateReply('payload', null)
+
   fastify.addHook('onSend', async (request, reply, payload) => {
+    reply.payload = payload
+  })
+  fastify.addHook('onResponse', async (request, reply) => {
     let errors = []
     const body = request.body ?? {}
     const params = request.params
@@ -25,10 +30,10 @@ async function treblleFastify(
     const maskedRequestPayload = maskSensitiveValues(requestPayload, fieldsToMask)
 
     const protocol = `${request.protocol}/${request.raw.httpVersion}`
-    let originalResponseBody = payload
+    let originalResponseBody = reply.payload
     let maskedResponseBody
     try {
-      if (Buffer.isBuffer(payload)) {
+      if (Buffer.isBuffer(reply.payload)) {
         originalResponseBody = originalResponseBody.toString('utf8')
       }
       if (typeof originalResponseBody === 'string') {
@@ -81,7 +86,7 @@ async function treblleFastify(
         response: {
           headers: reply.getHeaders(),
           code: reply.statusCode,
-          size: reply.getHeader('content-length') ?? 0,
+          size: reply.getHeader('content-length'),
           load_time: reply.getResponseTime(),
           body: maskedResponseBody ?? null,
         },
