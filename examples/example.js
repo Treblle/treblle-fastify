@@ -1,10 +1,5 @@
-const fastify = require('fastify')({
-  logger: {
-    level: 'error',
-  },
-})
 require('dotenv').config()
-
+const fastify = require('fastify')()
 const treblleFastify = require('../index')
 
 fastify.register(treblleFastify)
