@@ -1,6 +1,6 @@
 {
   "name": "treblle-fastify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "example": "node examples/example.js",
     "lint": "npx prettier --check .",
