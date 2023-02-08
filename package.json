@@ -1,5 +1,5 @@
 {
-  "name": "treblle-fastify",
+  "name": "@treblle/fastify",
   "version": "0.0.3",
   "scripts": {
     "example": "node examples/example.js",
