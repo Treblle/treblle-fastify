@@ -85,7 +85,7 @@ async function treblleFastify(
           body: maskedRequestPayload,
         },
         response: {
-          headers: reply.getHeaders(),
+          headers: maskSensitiveValues(reply.getHeaders(), fieldsToMask),
           code: reply.statusCode,
           size: reply.getHeader('content-length'),
           load_time: reply.getResponseTime(),
