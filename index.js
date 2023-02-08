@@ -3,8 +3,8 @@ const {
   sendPayloadToTreblle,
   generateFieldsToMask,
   maskSensitiveValues,
+  generateTrebllePayload,
 } = require('@treblle/utils')
-const os = require('os')
 const { version: sdkVersion } = require('./package.json')
 
 async function treblleFastify(
@@ -53,30 +53,14 @@ async function treblleFastify(
         line: null,
       })
     }
-    const trebllePayload = {
-      api_key: apiKey,
-      project_id: projectId,
-      sdk: 'fastify',
-      version: sdkVersion,
-      data: {
+    const trebllePayload = generateTrebllePayload(
+      { api_key: apiKey, project_id: projectId, sdk: 'fastify', version: sdkVersion },
+      {
         server: {
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          os: {
-            name: os.platform(),
-            release: os.release(),
-            architecture: os.arch(),
-          },
-          software: null,
-          signature: null,
           protocol,
           ip: fastify.server.address().address,
         },
-        language: {
-          name: 'node',
-          version: process.version,
-        },
         request: {
-          timestamp: new Date().toISOString().replace('T', ' ').substr(0, 19),
           ip: request.ip,
           url: `${request.protocol}://${request.headers['host']}${request.url}`,
           user_agent: request.headers['user-agent'],
@@ -92,8 +76,9 @@ async function treblleFastify(
           body: maskedResponseBody ?? null,
         },
         errors,
-      },
-    }
+      }
+    )
+
     try {
       sendPayloadToTreblle(trebllePayload, apiKey)
     } catch (error) {
