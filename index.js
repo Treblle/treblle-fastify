@@ -81,11 +81,11 @@ async function treblleFastify(
           url: `${request.protocol}://${request.headers['host']}${request.url}`,
           user_agent: request.headers['user-agent'],
           method: request.method,
-          headers: request.headers,
+          headers: maskSensitiveValues(request.headers, fieldsToMask),
           body: maskedRequestPayload,
         },
         response: {
-          headers: reply.getHeaders(),
+          headers: maskSensitiveValues(reply.getHeaders(), fieldsToMask),
           code: reply.statusCode,
           size: reply.getHeader('content-length'),
           load_time: reply.getResponseTime(),
