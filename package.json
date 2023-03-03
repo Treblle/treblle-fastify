@@ -1,6 +1,6 @@
 {
   "name": "@treblle/fastify",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "example": "node examples/example.js",
     "lint": "npx prettier --check .",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Treblle/treblle-fastify#readme",
   "dependencies": {
-    "@treblle/utils": "^0.1.8",
+    "@treblle/utils": "^0.1.9",
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
