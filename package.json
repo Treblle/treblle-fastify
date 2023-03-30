@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Treblle/treblle-fastify#readme",
   "dependencies": {
-    "@treblle/utils": "^0.1.9",
+    "@treblle/utils": "^0.1.10",
     "fastify-plugin": "^4.4.0"
   },
   "devDependencies": {
