@@ -4,6 +4,7 @@ const {
   generateFieldsToMask,
   maskSensitiveValues,
   generateTrebllePayload,
+  getResponsePayload,
 } = require('@treblle/utils')
 const { version: sdkVersion } = require('./package.json')
 
@@ -31,28 +32,16 @@ async function treblleFastify(
     const fieldsToMask = generateFieldsToMask(additionalFieldsToMask)
     const maskedRequestPayload = maskSensitiveValues(requestPayload, fieldsToMask)
     const protocol = `${request.protocol}/${request.raw.httpVersion}`
-    let originalResponseBody = reply.payload
-    let maskedResponseBody
-    try {
-      if (Buffer.isBuffer(reply.payload)) {
-        originalResponseBody = originalResponseBody.toString('utf8')
-      }
-      if (typeof originalResponseBody === 'string') {
-        let parsedResponseBody = JSON.parse(originalResponseBody)
-        maskedResponseBody = maskSensitiveValues(parsedResponseBody, fieldsToMask)
-      } else if (typeof originalResponseBody === 'object') {
-        maskedResponseBody = maskSensitiveValues(originalResponseBody, fieldsToMask)
-      }
-    } catch (error) {
-      // if we can't parse the body we'll leave it empty and set an error
-      errors.push({
-        source: 'onShutdown',
-        type: 'INVALID_JSON',
-        message: 'Invalid JSON format',
-        file: null,
-        line: null,
-      })
+
+    const { payload: maskedResponseBody, error: invalidResponseBodyError } = getResponsePayload(
+      reply.payload,
+      fieldsToMask
+    )
+
+    if (invalidResponseBodyError) {
+      errors.push(invalidResponseBodyError)
     }
+
     const trebllePayload = generateTrebllePayload(
       { api_key: apiKey, project_id: projectId, sdk: 'fastify', version: sdkVersion },
       {
