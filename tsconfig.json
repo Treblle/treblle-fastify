@@ -1,0 +1,12 @@
+{
+  "include": ["index.js", "treblle-fastify.d.ts"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "types",
+    "declarationMap": true
+  }
+}
