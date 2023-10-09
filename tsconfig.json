@@ -1,5 +1,5 @@
 {
-  "include": ["index.js", "treblle-payload.d.ts"],
+  "include": ["index.js", "treblle-fastify.d.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "types": ["node"],
