@@ -8,6 +8,14 @@ const {
 } = require('@treblle/utils')
 const { version: sdkVersion } = require('./package.json')
 
+/**
+ * Initializes the Fastify plugin for Treblle
+ * @param {*} fastify The Fastify instance
+ * @param {import('./treblle-fastify').SdkInfo} sdkInfo The SDK configuration object
+ * @param {string} sdkInfo.apiKey Your Treblle API key
+ * @param {string} sdkInfo.projectId Your Treblle Project ID
+ * @param {string} sdkInfo.additionalFieldsToMask Additional fields you want to mask
+ */
 async function treblleFastify(
   fastify,
   {

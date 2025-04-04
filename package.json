@@ -18,15 +18,17 @@
   },
   "homepage": "https://github.com/Treblle/treblle-fastify#readme",
   "dependencies": {
-    "@treblle/utils": "^0.1.13",
+    "@treblle/utils": "^0.1.14",
     "fastify-plugin": "^4.5.0"
   },
   "devDependencies": {
+    "@types/node": "^20.8.4",
     "dotenv": "^16.3.1",
     "fastify": "^4.19.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "typescript": "^5.2.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
